@@ -1,0 +1,94 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: sans-serif;
+	padding: 10px 5%;
+}
+
+.row, .column {
+	display: flex;
+}
+
+.column {
+	flex-direction: column;
+}
+
+.wrap {
+	flex-wrap: wrap;
+}
+
+.header {
+	margin-bottom: 10px;
+}
+
+.employee-form {
+	width: 350px;
+	margin-bottom: 25px;
+}
+
+.employee-header {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.employee-form input, .employee-form button {
+	margin-bottom: 5px;
+	padding: 6px;
+}
+
+.employee {
+	background: #555;
+	color: #fff;
+	padding: 10px 15px 7px;
+	margin-right: 10px;
+}
+
+.employee > * {
+	font-weight: 300;
+}
+
+.employee h2 {
+	text-align: center;
+	font-weight: 300;
+	margin-bottom: 5px;
+}
+
+.employee form input, .employee form button {
+	padding: 4px;
+	margin-bottom: 2px;
+}
+
+.employee h3 {
+	text-align: center;
+	margin: 3px 0 5px;
+	border-bottom: 1px solid #707070;
+	padding-bottom: 3px;
+}
+
+.employee h4.empty {
+	max-width: 120px;
+	text-align: center;
+	margin: 0 auto;
+	padding-top: 10px;
+}
+
+.employee .project {
+	padding: 3px;
+	background: #444;
+	text-align: center;
+	margin-bottom: 4px;
+}
+
+.employee .project h4 {
+	font-weight: 400;
+	font-size: .95rem;
+	margin-bottom: 3px;
+}
+
+.employee .project p {
+	font-size: .8rem;
+}

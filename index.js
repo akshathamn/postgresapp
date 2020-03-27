@@ -1,24 +1,57 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const exphbs = require('express-handlebars');
 const path = require('path');
 
-// Database
-const db = require('./config/database');
+const Employee = require("./models").Employee;
+const Techstack = require("./models").Techstack;
+const Project = require("./models").Project;
 
-// Test DB
-db.authenticate()
-  .then(() => console.log('Database connected...'))
-  .catch(err => console.log('Error: ' + err))
+// Employee.create({
+//     name: 'Akshatha',
+//     place: 'Mandya',
+//     designation: 'Developer'
+// //   project: 'HPE'
+//      }).then(employee=> {
+//   employee.createProject({
+//     project: 'HPE'
+//   }).then(() => console.log('Worked'))
+//   .catch(() =>console.log('----------------'))
+// })
+
+// Project.findAll({
+//   include : [Employee]
+// }).then(projects => {
+//   console.log(projects[3].Employee);
+// });
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-app.get('/', (req, res) => res.send('index'));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/employees', require('./routes/employeesroute'));
-app.use('/teckstack', require('./routes/teckstackroute'));
-app.use('/employeeproject', require('./routes/projectroute'));
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+
+app.get('/', (req, res) => {
+  Employee.findAll({
+    include: [Project]
+  }).then(employees => {
+    res.render('index', { employees: employees });
+  });
+});
+
+app.post('/employees', (req, res) => {
+  Employee.create(req.body)
+    .then(() => res.redirect('/'));
+});
+
+app.post('/project/:employee_id', (req, res) => {
+  Project.create({ ...req.body, EmployeeId: req.params.employee_id })
+    .then(() => res.redirect('/'));
+});
 
 
 const PORT = process.env.PORT || 5000;

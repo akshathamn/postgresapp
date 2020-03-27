@@ -1,0 +1,35 @@
+<h1 class="header">Add Employee</h1>
+
+<form action="/employees" method="post" class="employee-form column">
+    <input type="text" name="name" placeholder="Employee Name">
+    <input type="text" name="place" placeholder="place">
+    <input type="text" name="designation" placeholder="Designation">
+    <button>Submit</button>
+</form>
+
+<h1 class="employee-header">Project Listing</h1>
+
+<div class="row wrap">
+
+    {{#each employees}}
+    <div class="employee column">
+        <h2>{{name}}</h2>
+        <p>{{place}}</p>
+        <p>{{designation}}</p>
+        <form action="/project/{{id}}" method="post" class="column">
+            <input type="text" name="name" placeholder="Project Name">
+            <button>Add Project</button>
+        </form>
+
+        <h3>Project Listing</h3>
+        {{#each Projects}}
+        <div class="project">
+            <h4>{{project}}</h4>
+        </div>
+        {{else}}
+        <h4 class="empty">No projects have been added.</h4>
+        {{/each}}
+    </div>
+    {{/each}}
+
+</div>
