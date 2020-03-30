@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const Handlebars = require('handlebars')
 const exphbs = require('express-handlebars');
 const path = require('path');
 
@@ -7,23 +8,27 @@ const Employee = require("./models").Employee;
 const Techstack = require("./models").Techstack;
 const Project = require("./models").Project;
 
-// Employee.create({
-//     name: 'Akshatha',
-//     place: 'Mandya',
-//     designation: 'Developer'
-// //   project: 'HPE'
-//      }).then(employee=> {
-//   employee.createProject({
-//     project: 'HPE'
-//   }).then(() => console.log('Worked'))
-//   .catch(() =>console.log('----------------'))
-// })
+Employee.create({
+  name: 'Akshatha',
+  place: 'Mandya',
+  designation: 'Developer'
+}).then(employee => {
+  employee.createProject({
+    project: 'HPE'
+  }).then(() => console.log('Worked'))
+    .catch(() => console.log('----------------'))
+})
 
 // Project.findAll({
 //   include : [Employee]
 // }).then(projects => {
 //   console.log(projects[3].Employee);
 // });
+
+Techstack.create({
+  technologies: 'react',
+  experience: '5 years',
+})
 
 const app = express();
 
@@ -50,6 +55,11 @@ app.post('/employees', (req, res) => {
 
 app.post('/project/:employee_id', (req, res) => {
   Project.create({ ...req.body, EmployeeId: req.params.employee_id })
+    .then(() => res.redirect('/'));
+});
+
+app.post('/techstacks', (req, res) => {
+  Techstack.create(req.body)
     .then(() => res.redirect('/'));
 });
 
