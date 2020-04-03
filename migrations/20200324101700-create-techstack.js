@@ -8,9 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      technologies: {
-        type: Sequelize.STRING
-      },
       experience: {
         type: Sequelize.STRING
       },

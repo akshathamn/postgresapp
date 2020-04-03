@@ -17,6 +17,9 @@ module.exports = {
       designation: {
         type: Sequelize.STRING
       },
+      technologies: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

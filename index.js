@@ -1,34 +1,8 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const Handlebars = require('handlebars')
-const exphbs = require('express-handlebars');
-const path = require('path');
-
-const Employee = require("./models").Employee;
-const Techstack = require("./models").Techstack;
-const Project = require("./models").Project;
-
-Employee.create({
-  name: 'Akshatha',
-  place: 'Mandya',
-  designation: 'Developer'
-}).then(employee => {
-  employee.createProject({
-    project: 'HPE'
-  }).then(() => console.log('Worked'))
-    .catch(() => console.log('----------------'))
-})
-
-// Project.findAll({
-//   include : [Employee]
-// }).then(projects => {
-//   console.log(projects[3].Employee);
-// });
-
-Techstack.create({
-  technologies: 'react',
-  experience: '5 years',
-})
+import express from 'express';
+import bodyParser from 'body-parser';
+import Handlebars from 'handlebars';
+import exphbs from 'express-handlebars';
+import path from 'path';
 
 const app = express();
 
@@ -40,30 +14,37 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-app.get('/', (req, res) => {
-  Employee.findAll({
-    include: [Project]
-  }).then(employees => {
-    res.render('index', { employees: employees });
-  });
-});
+const employeeroutes=require('./routes/employeeRoute');
 
-app.post('/employees', (req, res) => {
-  Employee.create(req.body)
-    .then(() => res.redirect('/'));
-});
-
-app.post('/project/:employee_id', (req, res) => {
-  Project.create({ ...req.body, EmployeeId: req.params.employee_id })
-    .then(() => res.redirect('/'));
-});
-
-app.post('/techstacks', (req, res) => {
-  Techstack.create(req.body)
-    .then(() => res.redirect('/'));
-});
-
+app.use('/',employeeroutes)
+app.use(require('./routes/techStackroute'));
+app.use(require('./routes/projectRoute'))
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
+
+
+
+
+// Employee.create({
+//   name: 'user',
+//   place: 'Mysore',
+//   designation: 'Developer',
+//  technologies: 'react'
+// }).then(employee => {
+//   employee.createProject({
+//     project: 'cooler screen'
+//   }).then(() => console.log('Worked'))
+//     .catch(() => console.log('----------------'))
+// })
+
+// Project.findAll({
+//   include : [Employee]
+// }).then(projects => {
+//   console.log(projects[3].Employee);
+// });
+
+// Techstack.create({
+//   experience: '5 years',
+// })

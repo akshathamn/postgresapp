@@ -4,6 +4,7 @@
     <input type="text" name="name" placeholder="Employee Name">
     <input type="text" name="place" placeholder="place">
     <input type="text" name="designation" placeholder="Designation">
+    <input type="text" name="technologies" placeholder="Technologies">
     <button>Submit</button>
 </form>
 
@@ -16,6 +17,7 @@
         <h2>{{name}}</h2>
         <p>{{place}}</p>
         <p>{{designation}}</p>
+        <p>{{technologies}}</p>
         <form action="/project/{{id}}" method="post" class="column">
             <input type="text" name="name" placeholder="Project Name">
             <button>Add Project</button>
