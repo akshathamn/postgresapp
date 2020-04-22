@@ -1,19 +1,14 @@
-import express from 'express';
+const express = require('express');
 const router = express.Router();
-const Employee = require("../models").Employee;
-const Project = require("../models").Project;
+const employeecontroller = require('../controllers/employeecontroller');
+const techstackController = require('../controllers/techstackController');
+const projectController = require('../controllers/projectController');
 
-router.get('/', (req, res) => {
-    Employee.findAll({
-        include: [Project]
-    }).then(employees => {
-        res.render('index', { employees: employees });
-    });
-});
+router.get('/', employeecontroller.employee)
+router.post('/employees', employeecontroller.postemployee )
 
-router.post('/employees', (req, res) => {
-    Employee.create(req.body)
-        .then(() => res.redirect('/'));
-});
+router.post('/project/:employee_id',projectController.postProject )
+
+router.post('/techstacks',techstackController.postTechstack )
 
 module.exports = router;

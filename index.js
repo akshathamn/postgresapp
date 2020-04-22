@@ -17,12 +17,18 @@ app.set('view engine', 'handlebars');
 const employeeroutes=require('./routes/employeeRoute');
 
 app.use('/',employeeroutes)
-app.use(require('./routes/techStackroute'));
-app.use(require('./routes/projectRoute'))
+// app.use(require('./routes/techStackroute'));
+// app.use(require('./routes/projectRoute'))
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
+
+
+
+
+
+
 
 
 
